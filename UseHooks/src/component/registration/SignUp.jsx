@@ -40,6 +40,7 @@ function Signup() {
         setError(data.message || "Signup failed. Please try again.");
         return;
       }
+       
 
       // Save token & user info
       localStorage.setItem("token", data.token);
