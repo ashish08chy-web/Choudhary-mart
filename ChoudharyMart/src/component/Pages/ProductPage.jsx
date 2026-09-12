@@ -1,5 +1,10 @@
 import { useState, useEffect, useMemo } from "react";
-import { useParams, Link, useSearchParams, useNavigate } from "react-router-dom";
+import {
+  useParams,
+  Link,
+  useSearchParams,
+  useNavigate,
+} from "react-router-dom";
 
 const initialCatalog = [
   {
@@ -11,8 +16,10 @@ const initialCatalog = [
     stock: 25,
     rating: 4.8,
     reviews: 142,
-    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80",
-    description: "Breathable 100% organic cotton tee with modern tailored fit and ultra soft texture.",
+    image:
+      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80",
+    description:
+      "Breathable 100% organic cotton tee with modern tailored fit and ultra soft texture.",
   },
   {
     id: "2",
@@ -23,8 +30,10 @@ const initialCatalog = [
     stock: 18,
     rating: 4.9,
     reviews: 89,
-    image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=80",
-    description: "Classic rugged denim jacket featuring durable bronze buttons and comfort stretch.",
+    image:
+      "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=80",
+    description:
+      "Classic rugged denim jacket featuring durable bronze buttons and comfort stretch.",
   },
   {
     id: "3",
@@ -35,8 +44,10 @@ const initialCatalog = [
     stock: 12,
     rating: 4.7,
     reviews: 210,
-    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80",
-    description: "High-cushioning lightweight everyday lifestyle sneakers with anti-slip rubber sole.",
+    image:
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80",
+    description:
+      "High-cushioning lightweight everyday lifestyle sneakers with anti-slip rubber sole.",
   },
   {
     id: "4",
@@ -47,8 +58,10 @@ const initialCatalog = [
     stock: 30,
     rating: 4.9,
     reviews: 320,
-    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80",
-    description: "Full touch HD display with heart rate tracker, Bluetooth calling and 7-day battery life.",
+    image:
+      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80",
+    description:
+      "Full touch HD display with heart rate tracker, Bluetooth calling and 7-day battery life.",
   },
   {
     id: "5",
@@ -59,8 +72,10 @@ const initialCatalog = [
     stock: 15,
     rating: 4.6,
     reviews: 75,
-    image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80",
-    description: "Elegant floral print midi dress tailored for summer parties and casual outdoor outings.",
+    image:
+      "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80",
+    description:
+      "Elegant floral print midi dress tailored for summer parties and casual outdoor outings.",
   },
   {
     id: "6",
@@ -71,8 +86,10 @@ const initialCatalog = [
     stock: 20,
     rating: 4.8,
     reviews: 190,
-    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80",
-    description: "Over-ear active noise cancelling headphones with deep bass and 40h playtime.",
+    image:
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80",
+    description:
+      "Over-ear active noise cancelling headphones with deep bass and 40h playtime.",
   },
   {
     id: "7",
@@ -83,8 +100,10 @@ const initialCatalog = [
     stock: 8,
     rating: 4.9,
     reviews: 64,
-    image: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=800&q=80",
-    description: "Stainless steel water-resistant chronograph watch with sapphire crystal dial.",
+    image:
+      "https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=800&q=80",
+    description:
+      "Stainless steel water-resistant chronograph watch with sapphire crystal dial.",
   },
   {
     id: "8",
@@ -95,8 +114,10 @@ const initialCatalog = [
     stock: 45,
     rating: 4.7,
     reviews: 156,
-    image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=800&q=80",
-    description: "Pure Vitamin C face serum for dark spots reduction and glowing skin tone.",
+    image:
+      "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=800&q=80",
+    description:
+      "Pure Vitamin C face serum for dark spots reduction and glowing skin tone.",
   },
 ];
 
@@ -127,6 +148,7 @@ export default function ProductPage({ addToCart }) {
   const [minPrice, setMinPrice] = useState(minPriceParam);
   const [maxPrice, setMaxPrice] = useState(maxPriceParam);
   const [sortBy, setSortBy] = useState(sortParam);
+  const [inStockOnly, setInStockOnly] = useState(false);
 
   // Sync state when URL params change
   useEffect(() => {
@@ -168,7 +190,9 @@ export default function ProductPage({ addToCart }) {
         setLoading(true);
         try {
           const query = searchParams.toString();
-          const res = await fetch(`http://localhost:5000/api/products?${query}`);
+          const res = await fetch(
+            `http://localhost:5000/api/products?${query}`,
+          );
           const data = await res.json();
           if (data.success && data.products && data.products.length > 0) {
             setProductsList(data.products);
@@ -197,14 +221,16 @@ export default function ProductPage({ addToCart }) {
         (p) =>
           p.name.toLowerCase().includes(q) ||
           (p.category && p.category.toLowerCase().includes(q)) ||
-          (p.description && p.description.toLowerCase().includes(q))
+          (p.description && p.description.toLowerCase().includes(q)),
       );
     }
 
     // Filter by Category
     if (selectedCategory && selectedCategory !== "all") {
       list = list.filter(
-        (p) => p.category && p.category.toLowerCase() === selectedCategory.toLowerCase()
+        (p) =>
+          p.category &&
+          p.category.toLowerCase() === selectedCategory.toLowerCase(),
       );
     }
 
@@ -232,7 +258,8 @@ export default function ProductPage({ addToCart }) {
   const applyFilters = () => {
     const params = new URLSearchParams();
     if (searchQuery) params.set("search", searchQuery);
-    if (selectedCategory && selectedCategory !== "all") params.set("category", selectedCategory);
+    if (selectedCategory && selectedCategory !== "all")
+      params.set("category", selectedCategory);
     if (minPrice) params.set("minPrice", minPrice);
     if (maxPrice) params.set("maxPrice", maxPrice);
     if (sortBy && sortBy !== "default") params.set("sort", sortBy);
@@ -269,14 +296,22 @@ export default function ProductPage({ addToCart }) {
     return (
       <div className="min-h-screen bg-[#f0f4f9] py-8 sm:py-12 px-4 selection:bg-orange-500 selection:text-white">
         <div className="max-w-6xl mx-auto space-y-8">
-          
           {/* Breadcrumbs */}
           <div className="flex items-center gap-2 text-sm text-gray-500">
-            <Link to="/" className="hover:text-orange-600 transition-colors">Home</Link>
+            <Link to="/" className="hover:text-orange-600 transition-colors">
+              Home
+            </Link>
             <span>/</span>
-            <Link to="/productpage" className="hover:text-orange-600 transition-colors">Products</Link>
+            <Link
+              to="/productpage"
+              className="hover:text-orange-600 transition-colors"
+            >
+              Products
+            </Link>
             <span>/</span>
-            <span className="font-semibold text-gray-900 truncate">{product.name}</span>
+            <span className="font-semibold text-gray-900 truncate">
+              {product.name}
+            </span>
           </div>
 
           <div className="bg-white rounded-3xl p-6 sm:p-10 shadow-sm border border-blue-100/70 grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -312,7 +347,8 @@ export default function ProductPage({ addToCart }) {
                 <div className="flex items-center gap-2">
                   <span className="text-yellow-400 font-bold">★★★★★</span>
                   <span className="text-xs font-semibold text-gray-500">
-                    ({product.rating || "4.8"} / 5 from {product.reviews || 95} reviews)
+                    ({product.rating || "4.8"} / 5 from {product.reviews || 95}{" "}
+                    reviews)
                   </span>
                 </div>
 
@@ -321,7 +357,8 @@ export default function ProductPage({ addToCart }) {
                 </h1>
 
                 <p className="text-gray-600 text-sm leading-relaxed">
-                  {product.description || "Premium quality merchandise built for durability and unmatched comfort."}
+                  {product.description ||
+                    "Premium quality merchandise built for durability and unmatched comfort."}
                 </p>
 
                 {/* Price Display */}
@@ -335,7 +372,12 @@ export default function ProductPage({ addToCart }) {
                         ₹{product.originalPrice}
                       </span>
                       <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">
-                        {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% OFF
+                        {Math.round(
+                          ((product.originalPrice - product.price) /
+                            product.originalPrice) *
+                            100,
+                        )}
+                        % OFF
                       </span>
                     </>
                   )}
@@ -343,7 +385,10 @@ export default function ProductPage({ addToCart }) {
 
                 <div className="text-xs font-semibold text-gray-500 flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
-                  <span>In Stock ({product.stock || 50} units ready for immediate shipping)</span>
+                  <span>
+                    In Stock ({product.stock || 50} units ready for immediate
+                    shipping)
+                  </span>
                 </div>
 
                 {/* Size Selector */}
@@ -380,7 +425,9 @@ export default function ProductPage({ addToCart }) {
                     >
                       -
                     </button>
-                    <span className="font-bold text-base w-8 text-center">{quantity}</span>
+                    <span className="font-bold text-base w-8 text-center">
+                      {quantity}
+                    </span>
                     <button
                       onClick={() => setQuantity((q) => q + 1)}
                       className="w-10 h-10 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-800 font-black text-lg transition-colors cursor-pointer flex items-center justify-center"
@@ -423,18 +470,21 @@ export default function ProductPage({ addToCart }) {
   // -------------------------------------------------------------
   return (
     <div className="min-h-screen bg-[#f0f4f9] flex flex-col selection:bg-orange-500 selection:text-white">
-      
       {/* Search Header Banner */}
       <div className="bg-white/90 backdrop-blur-sm border-b border-blue-100/70 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 text-xs font-semibold text-gray-500 mb-1">
-              <Link to="/" className="hover:text-orange-600">Home</Link>
+              <Link to="/" className="hover:text-orange-600">
+                Home
+              </Link>
               <span>/</span>
               <span className="text-gray-900 font-bold">Products Catalog</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-black text-gray-900">
-              {searchQuery ? `Search Results for "${searchQuery}"` : "Explore All Products"}
+              {searchQuery
+                ? `Search Results for "${searchQuery}"`
+                : "Explore All Products"}
             </h1>
           </div>
 
@@ -449,11 +499,9 @@ export default function ProductPage({ addToCart }) {
       {/* Main Content Layout with Sidebar & Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          
           {/* Left Sidebar Filter Controls */}
           <div className="lg:col-span-1 space-y-6">
             <div className="bg-white rounded-3xl p-6 shadow-xs border border-blue-100/70 space-y-6 sticky top-28">
-              
               <div className="flex items-center justify-between pb-4 border-b border-gray-100">
                 <h3 className="font-bold text-gray-900 text-base flex items-center gap-2">
                   <span>⚙️</span> Filters
@@ -521,7 +569,9 @@ export default function ProductPage({ addToCart }) {
                     onChange={(e) => setInStockOnly(e.target.checked)}
                     className="w-4 h-4 text-orange-500 rounded border-gray-300 focus:ring-orange-400 cursor-pointer"
                   />
-                  <span className="text-xs font-semibold text-gray-700">In Stock Only</span>
+                  <span className="text-xs font-semibold text-gray-700">
+                    In Stock Only
+                  </span>
                 </label>
               </div>
 
@@ -549,14 +599,15 @@ export default function ProductPage({ addToCart }) {
               >
                 Apply Filters
               </button>
-
             </div>
           </div>
 
           {/* Right Products Grid */}
           <div className="lg:col-span-3">
             {loading ? (
-              <div className="py-20 text-center text-gray-500 font-medium">Loading products...</div>
+              <div className="py-20 text-center text-gray-500 font-medium">
+                Loading products...
+              </div>
             ) : filteredProducts.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
                 {filteredProducts.map((p) => (
@@ -566,7 +617,10 @@ export default function ProductPage({ addToCart }) {
                   >
                     <div>
                       {/* Product Image Link */}
-                      <Link to={`/productpage/${p.id}`} className="block relative aspect-square w-full overflow-hidden bg-blue-50/40">
+                      <Link
+                        to={`/productpage/${p.id}`}
+                        className="block relative aspect-square w-full overflow-hidden bg-blue-50/40"
+                      >
                         <img
                           src={p.image}
                           alt={p.name}
@@ -580,7 +634,10 @@ export default function ProductPage({ addToCart }) {
                       {/* Info */}
                       <div className="p-5 pb-2">
                         <div className="text-yellow-400 text-xs font-bold mb-1">
-                          ★★★★★ <span className="text-gray-400 font-normal">({p.rating || "4.8"})</span>
+                          ★★★★★{" "}
+                          <span className="text-gray-400 font-normal">
+                            ({p.rating || "4.8"})
+                          </span>
                         </div>
                         <Link to={`/productpage/${p.id}`}>
                           <h3 className="font-bold text-gray-900 text-base group-hover:text-orange-500 transition-colors line-clamp-1">
@@ -588,7 +645,8 @@ export default function ProductPage({ addToCart }) {
                           </h3>
                         </Link>
                         <p className="text-xs text-gray-500 mt-1 line-clamp-2">
-                          {p.description || "Premium build and designed for peak durability."}
+                          {p.description ||
+                            "Premium build and designed for peak durability."}
                         </p>
                       </div>
                     </div>
@@ -596,9 +654,13 @@ export default function ProductPage({ addToCart }) {
                     {/* Price and Cart */}
                     <div className="p-5 pt-2">
                       <div className="flex items-baseline gap-2 mb-4">
-                        <span className="font-black text-xl text-gray-900">₹{p.price}</span>
+                        <span className="font-black text-xl text-gray-900">
+                          ₹{p.price}
+                        </span>
                         {p.originalPrice && (
-                          <span className="text-xs text-gray-400 line-through">₹{p.originalPrice}</span>
+                          <span className="text-xs text-gray-400 line-through">
+                            ₹{p.originalPrice}
+                          </span>
                         )}
                       </div>
 
@@ -610,7 +672,6 @@ export default function ProductPage({ addToCart }) {
                         <span>Add to Cart</span>
                       </button>
                     </div>
-
                   </div>
                 ))}
               </div>
@@ -620,9 +681,12 @@ export default function ProductPage({ addToCart }) {
                 <div className="w-16 h-16 bg-orange-50 text-orange-500 rounded-full flex items-center justify-center mx-auto text-2xl mb-4">
                   🔍
                 </div>
-                <h3 className="text-lg font-bold text-gray-900">No products match your filters</h3>
+                <h3 className="text-lg font-bold text-gray-900">
+                  No products match your filters
+                </h3>
                 <p className="text-gray-500 text-xs mt-1 max-w-sm mx-auto">
-                  Try adjusting the price range, choosing a different category, or resetting all filters.
+                  Try adjusting the price range, choosing a different category,
+                  or resetting all filters.
                 </p>
                 <button
                   onClick={resetAllFilters}
@@ -633,7 +697,6 @@ export default function ProductPage({ addToCart }) {
               </div>
             )}
           </div>
-
         </div>
       </div>
 
@@ -641,7 +704,6 @@ export default function ProductPage({ addToCart }) {
       <footer className="bg-gray-900 text-gray-400 text-center py-6 mt-auto border-t border-gray-800 text-xs">
         <p>© 2026 Choudhary Mart. All rights reserved.</p>
       </footer>
-
     </div>
   );
 }
