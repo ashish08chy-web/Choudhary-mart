@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import logoImg from "../logo12.jpg";
 
 function Login() {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ function Login() {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/auth/login", {
+      const res = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -45,34 +46,45 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
-
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
+    <div className="min-h-[85vh] bg-gradient-to-br from-blue-50/60 via-[#f0f4f9] to-indigo-50/40 flex items-center justify-center px-4 py-12 selection:bg-orange-500 selection:text-white">
+      <div className="w-full max-w-md bg-white/95 backdrop-blur-sm rounded-3xl shadow-xl shadow-blue-500/5 border border-blue-100/80 p-8 sm:p-10">
 
         {/* Logo */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-orange-500">
-            Choudhary Mart
+          <Link to="/" className="inline-flex items-center gap-2 mb-3">
+            <img
+              src={logoImg}
+              alt="Logo"
+              className="w-12 h-12 object-cover rounded-full shadow-md ring-2 ring-orange-500/20 mx-auto"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "/logo12.jpg";
+              }}
+            />
+          </Link>
+
+          <h1 className="text-2xl sm:text-3xl font-black text-gray-900">
+            Welcome Back
           </h1>
 
-          <p className="text-gray-500 mt-2">
-            Welcome back!
+          <p className="text-gray-500 text-sm mt-1">
+            Log in to manage your orders &amp; cart
           </p>
         </div>
 
         {/* Error Banner */}
         {error && (
-          <div className="mb-4 bg-red-50 border border-red-300 text-red-700 px-4 py-3 rounded-lg text-sm">
+          <div className="mb-5 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm font-medium">
             {error}
           </div>
         )}
 
         {/* Form */}
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleLogin} className="space-y-4">
 
           {/* Email */}
-          <div className="mb-5">
-            <label className="block text-gray-700 font-medium mb-2">
+          <div>
+            <label className="block text-gray-700 text-sm font-bold mb-2">
               Email Address
             </label>
 
@@ -81,22 +93,22 @@ function Login() {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="Enter your email"
+              placeholder="name@example.com"
               required
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 text-sm transition"
             />
           </div>
 
           {/* Password */}
-          <div className="mb-5">
-            <div className="flex justify-between mb-2">
-              <label className="text-gray-700 font-medium">
+          <div>
+            <div className="flex justify-between items-center mb-2">
+              <label className="text-gray-700 text-sm font-bold">
                 Password
               </label>
 
               <Link
                 to="/forgot-password"
-                className="text-orange-500 text-sm hover:underline"
+                className="text-orange-600 text-xs font-semibold hover:underline"
               >
                 Forgot Password?
               </Link>
@@ -107,9 +119,9 @@ function Login() {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              placeholder="Enter your password"
+              placeholder="••••••••"
               required
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 text-sm transition"
             />
           </div>
 
@@ -117,7 +129,7 @@ function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-orange-500 text-white py-3 rounded-lg font-semibold hover:bg-orange-600 transition disabled:opacity-60 disabled:cursor-not-allowed"
+            className="w-full mt-2 bg-orange-500 hover:bg-orange-600 active:scale-95 text-white py-3.5 rounded-xl font-bold shadow-lg shadow-orange-500/25 transition-all duration-200 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {loading ? "Logging in..." : "Login"}
           </button>
@@ -125,28 +137,27 @@ function Login() {
         </form>
 
         {/* Signup */}
-        <p className="text-center text-gray-600 mt-6">
+        <p className="text-center text-gray-600 text-sm mt-6">
           Don't have an account?{" "}
           <Link
             to="/signup"
-            className="text-orange-500 font-semibold hover:underline"
+            className="text-orange-600 font-bold hover:underline"
           >
             Sign Up
           </Link>
         </p>
 
         {/* Back Home */}
-        <div className="text-center mt-5">
+        <div className="text-center mt-4">
           <Link
             to="/"
-            className="text-gray-500 text-sm hover:text-orange-500"
+            className="text-gray-400 text-xs font-semibold hover:text-gray-600 transition"
           >
             ← Back to Home
           </Link>
         </div>
 
       </div>
-
     </div>
   );
 }
