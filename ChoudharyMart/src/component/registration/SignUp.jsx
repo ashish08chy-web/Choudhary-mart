@@ -43,12 +43,15 @@ function Signup() {
       }
 
       // Save token & user info
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
+      if (data.token && data.user) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        window.dispatchEvent(new Event("authChange"));
+      }
 
       navigate("/login");
     } catch (err) {
-      setError("Network error. Is the backend running?");
+      setError("Unable to connect to server. Please ensure the backend is running on port 5000.");
     } finally {
       setLoading(false);
     }

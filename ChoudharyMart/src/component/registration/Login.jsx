@@ -36,10 +36,11 @@ function Login() {
       // Save token & user info
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
+      window.dispatchEvent(new Event("authChange"));
 
       navigate("/");
     } catch (err) {
-      setError("Network error. Is the backend running?");
+      setError("Unable to connect to server. Please ensure the backend is running on port 5000.");
     } finally {
       setLoading(false);
     }
@@ -48,7 +49,6 @@ function Login() {
   return (
     <div className="min-h-[85vh] bg-gradient-to-br from-blue-50/60 via-[#f0f4f9] to-indigo-50/40 flex items-center justify-center px-4 py-12 selection:bg-orange-500 selection:text-white">
       <div className="w-full max-w-md bg-white/95 backdrop-blur-sm rounded-3xl shadow-xl shadow-blue-500/5 border border-blue-100/80 p-8 sm:p-10">
-
         {/* Logo */}
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2 mb-3">
@@ -81,7 +81,6 @@ function Login() {
 
         {/* Form */}
         <form onSubmit={handleLogin} className="space-y-4">
-
           {/* Email */}
           <div>
             <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -133,7 +132,6 @@ function Login() {
           >
             {loading ? "Logging in..." : "Login"}
           </button>
-
         </form>
 
         {/* Signup */}
@@ -156,7 +154,6 @@ function Login() {
             ← Back to Home
           </Link>
         </div>
-
       </div>
     </div>
   );

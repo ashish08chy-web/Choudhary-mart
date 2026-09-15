@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
-import Navbar from "./component/Navbar";
+import { useState } from "react";
+import Navbar from "./component/Navbar/Navbar";
 import Home from "./component/Pages/Home";
 import Cart from "./component/Cart";
 import Login from "./component/registration/Login";
@@ -8,7 +8,7 @@ import SignUp from "./component/registration/SignUp";
 import ForgotPassword from "./component/registration/ForgotPassword";
 import ProductPage from "./component/Pages/ProductPage";
 import Categories from "./component/Pages/Categories";
-import { ToastContainer } from "./component/Toast";
+import { ToastContainer } from "./component/Navbar/Toast";
 import Assistant from "./component/Assistant/Assistant";
 
 function App() {
@@ -19,7 +19,6 @@ function App() {
     setNotifications((prev) => prev.filter((n) => n.id !== id));
   };
 
-  //product add karne ke liye function
   const addToCart = (product) => {
     setCart((prev) => {
       const exist = prev.find((item) => item.id === product.id);
@@ -33,25 +32,14 @@ function App() {
         return [...prev, { ...product, quantity: 1 }];
       }
     });
-
-    // Trigger toast notification
     const id = Date.now();
     setNotifications((prev) => [
       ...prev,
-      {
-        id,
-        productName: product.name,
-        productImage: product.image,
-      },
+      { id, productName: product.name, productImage: product.image },
     ]);
-
-    // Auto remove after 3 seconds
-    setTimeout(() => {
-      removeNotification(id);
-    }, 3000);
+    setTimeout(() => removeNotification(id), 3000);
   };
 
-  //quantity kam jyada karne ke liye
   const updateQty = (id, type) => {
     setCart((prev) =>
       prev.map((item) => {
@@ -65,15 +53,15 @@ function App() {
     );
   };
 
-  const removeFromCart = (id) => {
+  const removeFromCart = (id) =>
     setCart((prev) => prev.filter((item) => item.id !== id));
-  };
-
   const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
-    <div className="min-h-screen bg-[#f0f4f9] text-gray-900 flex flex-col selection:bg-orange-500 selection:text-white">
-      <BrowserRouter>
+    <BrowserRouter>
+      {" "}
+      {/* <-- Router ko sabse upar lao */}
+      <div className="min-h-screen bg-[#f0f4f9] text-gray-900 flex flex-col selection:bg-orange-500 selection:text-white">
         <Navbar cartCount={cartCount} />
         <Routes>
           <Route path="/" element={<Home addToCart={addToCart} />} />
@@ -104,13 +92,13 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
         </Routes>
-      </BrowserRouter>
-      <ToastContainer
-        notifications={notifications}
-        removeNotification={removeNotification}
-      />
-      <Assistant />
-    </div>
+        <ToastContainer
+          notifications={notifications}
+          removeNotification={removeNotification}
+        />
+        <Assistant />
+      </div>
+    </BrowserRouter>
   );
 }
 

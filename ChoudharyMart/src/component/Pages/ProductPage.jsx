@@ -138,6 +138,7 @@ export default function ProductPage({ addToCart }) {
   const [selectedImg, setSelectedImg] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [size, setSize] = useState("M");
+  const [cart, setCart] = useState([]);
 
   // State for product list view
   const [productsList, setProductsList] = useState(initialCatalog);
