@@ -10,6 +10,7 @@ import ProductPage from "./component/Pages/ProductPage";
 import Categories from "./component/Pages/Categories";
 import { ToastContainer } from "./component/Navbar/Toast";
 import Assistant from "./component/Assistant/Assistant";
+import BottomNav from "./component/Navbar/BottomNav";
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -61,7 +62,7 @@ function App() {
     <BrowserRouter>
       {" "}
       {/* <-- Router ko sabse upar lao */}
-      <div className="min-h-screen bg-[#f0f4f9] text-gray-900 flex flex-col selection:bg-orange-500 selection:text-white">
+      <div className="min-h-screen bg-[#f0f4f9] text-gray-900 flex flex-col pb-16 md:pb-0 selection:bg-orange-500 selection:text-white">
         <Navbar cartCount={cartCount} />
         <Routes>
           <Route path="/" element={<Home addToCart={addToCart} />} />
@@ -97,6 +98,7 @@ function App() {
           removeNotification={removeNotification}
         />
         <Assistant />
+        <BottomNav cartCount={cartCount} />
       </div>
     </BrowserRouter>
   );

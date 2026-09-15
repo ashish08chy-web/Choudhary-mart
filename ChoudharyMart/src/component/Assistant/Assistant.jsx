@@ -36,13 +36,13 @@ function Assistant() {
       {isOpen && (
         <div
           className="
-            fixed bottom-20 right-6 z-50
-            w-[260px] max-w-[calc(100vw-32px)]
+            fixed bottom-34 md:bottom-22 right-4 md:right-6 z-50
+            w-[270px] max-w-[calc(100vw-32px)]
             overflow-hidden
             rounded-2xl
             border border-white/20
             bg-slate-900/95
-            shadow-xl
+            shadow-2xl
             backdrop-blur-xl
             animate-[fadeIn_.3s_ease-out]
           "
@@ -126,8 +126,8 @@ function Assistant() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="
-          fixed bottom-5 right-5 z-50
-          flex h-12 w-12
+          fixed bottom-18 md:bottom-6 right-4 md:right-6 z-50
+          flex h-11 w-11 md:h-12 md:w-12
           items-center justify-center
           rounded-full
           border border-white/20
