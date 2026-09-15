@@ -5,6 +5,7 @@ import {
   useSearchParams,
   useNavigate,
 } from "react-router-dom";
+import { API_ENDPOINTS } from "../../config/api";
 
 const initialCatalog = [
   {
@@ -164,7 +165,7 @@ export default function ProductPage({ addToCart }) {
     if (id) {
       const fetchSingleProduct = async () => {
         try {
-          const res = await fetch(`http://localhost:5000/api/products/${id}`);
+          const res = await fetch(API_ENDPOINTS.PRODUCTS.DETAIL(id));
           const data = await res.json();
           if (data.success && data.product) {
             setProduct(data.product);
@@ -191,9 +192,7 @@ export default function ProductPage({ addToCart }) {
         setLoading(true);
         try {
           const query = searchParams.toString();
-          const res = await fetch(
-            `http://localhost:5000/api/products?${query}`,
-          );
+          const res = await fetch(API_ENDPOINTS.PRODUCTS.LIST(query));
           const data = await res.json();
           if (data.success && data.products && data.products.length > 0) {
             setProductsList(data.products);
