@@ -11,7 +11,7 @@ import Categories from "./component/Pages/Categories";
 import { ToastContainer } from "./component/Navbar/Toast";
 import Assistant from "./component/Assistant/Assistant";
 import BottomNav from "./component/Navbar/BottomNav";
-import AdminPage from "./component/AdninPage/AdminPage";
+import AdminPage from "./component/AdminPage/AdminPage";
 
 function App() {
   const [cart, setCart] = useState([]);
