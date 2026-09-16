@@ -19,3 +19,4 @@ export const API_ENDPOINTS = {
   },
   HEALTH: `${API_BASE_URL}/api/health`,
 };
+ 
