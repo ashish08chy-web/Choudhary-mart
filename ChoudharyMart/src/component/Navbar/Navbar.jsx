@@ -268,7 +268,7 @@ function Navbar({ cartCount = 0 }) {
                 /* Login Button */
                 <button
                   onClick={() => navigate("/login")}
-                  className="bg-gray-900 hover:bg-gray-800 text-white px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all duration-200 cursor-pointer active:scale-95 shadow-xs hover:shadow-md"
+                  className="bg-blue-500 hover:bg-pink-600 text-black px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all duration-200 cursor-pointer active:scale-95 shadow-xs hover:shadow-md"
                 >
                   Login
                 </button>
