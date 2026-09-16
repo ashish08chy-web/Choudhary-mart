@@ -62,8 +62,8 @@ function Navbar({ cartCount = 0 }) {
   const initial = currentUser?.name
     ? currentUser.name.trim().charAt(0).toUpperCase()
     : currentUser?.email
-    ? currentUser.email.trim().charAt(0).toUpperCase()
-    : "U";
+      ? currentUser.email.trim().charAt(0).toUpperCase()
+      : "U";
 
   // ─── Scroll-aware hide/show ───────────────────────────────────────────────
   const [visible, setVisible] = useState(true);
@@ -176,6 +176,13 @@ function Navbar({ cartCount = 0 }) {
                   </span>
                 )}
               </button>
+              {/*Admin Panal*/}
+              <Link
+                to="/admin/login"
+                className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition"
+              >
+                Admin
+              </Link>
 
               {/* User Avatar with Capital Letter or Login Button */}
               {currentUser ? (
