@@ -11,7 +11,7 @@ function AdminLogin() {
     e.preventDefault();
 
     // Temporary login - learning purpose
-    if (email === "admin@gmail.com" && password === "admin123") {
+    if (email === "Ashish08@gmail.com" && password === "Ashish123") {
       navigate("/admin");
     } else {
       alert("Invalid admin credentials");
