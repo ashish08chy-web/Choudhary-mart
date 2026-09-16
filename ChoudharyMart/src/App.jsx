@@ -11,6 +11,7 @@ import Categories from "./component/Pages/Categories";
 import { ToastContainer } from "./component/Navbar/Toast";
 import Assistant from "./component/Assistant/Assistant";
 import BottomNav from "./component/Navbar/BottomNav";
+import AdminPage from "./component/AdninPage/AdminPage";
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -92,6 +93,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/adminpage" element={<AdminPage />} />
         </Routes>
         <ToastContainer
           notifications={notifications}
