@@ -69,6 +69,7 @@ function App() {
         <Navbar cartCount={cartCount} />
         <Routes>
           <Route path="/" element={<Home addToCart={addToCart} />} />
+
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/orders" element={<Orders />} />
