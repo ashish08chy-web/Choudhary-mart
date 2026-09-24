@@ -7,7 +7,7 @@
 
 Choudhary-mart ek full-stack, responsive e-commerce web app hai jahan users products browse, cart me add aur secure checkout kar sakte hain.
 
-**Live Demo:** [https://choudhary-mart.vercel.app](https://choudhary-mart.vercel.app) 
+**Live Demo:** https://choudhary-mart-7o5o.vercel.app/
 
 ### ✨ Features
 - 🔐 User Authentication (JWT + bcrypt)
